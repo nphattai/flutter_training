@@ -142,23 +142,19 @@ class MyWidget extends StatelessWidget {
 }
 
 class Box extends StatelessWidget {
-  Color color;
-  double height;
-  double width;
+  final Color color;
+  final double height;
+  final double width;
 
-  Box(Color color, {double height, double width}) {
-    this.color = color;
-    this.height = height;
-    this.width = width;
-  }
+  const Box(this.color, {this.height, this.width});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: this.height,
-      width: this.width,
+      height: height,
+      width: width,
       decoration: BoxDecoration(
-        color: this.color,
+        color: color,
       ),
     );
   }

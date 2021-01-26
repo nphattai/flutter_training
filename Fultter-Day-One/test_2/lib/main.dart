@@ -23,9 +23,6 @@ class _MyCustomFormState extends State<MyCustomForm> {
   @override
   void initState() {
     super.initState();
-
-    celsiusInputController.addListener(_convertCelsiusToFahrenheit);
-    fahrenheitInputController.addListener(_convertFahrenheitToCelsius);
   }
 
   @override
@@ -35,20 +32,18 @@ class _MyCustomFormState extends State<MyCustomForm> {
     super.dispose();
   }
 
-  void _convertCelsiusToFahrenheit() {
-    String fahrenheit = '';
-    fahrenheit = celsiusInputController.text == ''
-        ? ''
-        : '${int.parse(celsiusInputController.text) * 1.8 + 32}';
-    fahrenheitInputController.text = fahrenheit;
+  void _convertCelsiusToFahrenheit(String value) {
+    fahrenheitInputController.text = double.tryParse(value) == null
+        ? '0'
+        : (double.parse(celsiusInputController.text) * 1.8 + 32)
+            .toStringAsFixed(2);
   }
 
-  void _convertFahrenheitToCelsius() {
-    String celsius = '';
-    celsius = fahrenheitInputController.text == ''
-        ? ''
-        : '${(int.parse(fahrenheitInputController.text) - 32) / 1.8}';
-    celsiusInputController.text = celsius;
+  void _convertFahrenheitToCelsius(String value) {
+    celsiusInputController.text = double.tryParse(value) == null
+        ? '0'
+        : ((double.parse(fahrenheitInputController.text) - 32) / 1.8)
+            .toStringAsFixed(2);
   }
 
   @override
@@ -66,12 +61,14 @@ class _MyCustomFormState extends State<MyCustomForm> {
               decoration:
                   InputDecoration(hintText: 'Enter Celsius Temperature'),
               keyboardType: TextInputType.number,
+              onChanged: _convertCelsiusToFahrenheit,
             ),
             TextField(
               controller: fahrenheitInputController,
               decoration:
                   InputDecoration(hintText: 'Enter Fahrenheit Temperature'),
               keyboardType: TextInputType.number,
+              onChanged: _convertFahrenheitToCelsius,
             ),
           ],
         ),
