@@ -78,4 +78,8 @@ class Location extends Equatable {
       timezone,
     ];
   }
+
+  String get address {
+    return '${street.number.toStringAsFixed(0)} ${street.name} $city $country';
+  }
 }

@@ -38,4 +38,8 @@ class Name extends Equatable {
 
   @override
   List<Object> get props => [title, first, last];
+
+  String get fullName {
+    return '$first $last';
+  }
 }

@@ -54,20 +54,6 @@ class _MyHomePageState extends State<MyHomePage> {
       body: FutureBuilder<User>(
         future: futureUser,
         builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
-          final Results results = snapshot.data.results[0];
-          final String avatar = results.picture.medium;
-          final String fullName = results.name.first + ' ' + results.name.last;
-          final String email = results.email;
-          final String phoneNumber = results.phone;
-          final Location location = results.location;
-          final String address = location.street.number.toStringAsFixed(0) +
-              ' ' +
-              location.street.name +
-              ' ' +
-              location.city +
-              ' ' +
-              location.country;
-
           final bool isLightMode = widget.model._mode == ThemeMode.light;
 
           final String background =
@@ -77,6 +63,14 @@ class _MyHomePageState extends State<MyHomePage> {
               isLightMode ? Icons.nightlight_round : Icons.lightbulb_outlined;
 
           if (snapshot.hasData) {
+            final Results results = snapshot.data.results[0];
+            final String avatar = results.picture.medium;
+            final String fullName = results.name.fullName;
+            final String email = results.email;
+            final String phoneNumber = results.phone;
+            final Location location = results.location;
+            final String address = location.address;
+
             return Column(
               children: <Widget>[
                 Flexible(
